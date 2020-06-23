@@ -1,12 +1,51 @@
 {
-  "name": "jstor_page",
+  "name": "jstor-paper",
+  "description": "JSTOR Paper",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "author": "Anon",
+  "dependencies": {
+    "chart.js": "^2.x",
+    "gatsby": "^2.23.x",
+    "gatsby-image": "^2.4.x",
+    "gatsby-plugin-catch-links": "^2.3.x",
+    "gatsby-plugin-google-analytics": "^2.x",
+    "gatsby-plugin-manifest": "^2.3.x",
+    "gatsby-plugin-netlify": "^2.x",
+    "gatsby-plugin-netlify-cache": "^1.x",
+    "gatsby-plugin-react-helmet": "^3.3.x",
+    "gatsby-plugin-react-svg": "^3.0.x",
+    "gatsby-plugin-robots-txt": "^1.x",
+    "gatsby-plugin-sharp": "^2.6.x",
+    "gatsby-plugin-sitemap": "^2.x",
+    "gatsby-source-filesystem": "^2.3.x",
+    "gatsby-transformer-sharp": "^2.5.x",
+    "react": "^16.13.x",
+    "react-bootstrap": "^1.0.1",
+    "react-chartjs-2": "^2.9.0",
+    "react-dom": "^16.13.x",
+    "react-helmet": "^6.x",
+    "react-icons": "^3.x",
+    "react-youtube": "^7.x"
+  },
+  "keywords": [
+    "gatsby"
+  ],
+  "license": "MIT",
   "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "format": "prettier --write '**/*.js'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "devDependencies": {
+    "eslint": "^7.x",
+    "eslint-plugin-import": "^2.x",
+    "eslint-plugin-react": "^7.x",
+    "googleapis": "^52.x",
+    "prettier": "^2.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  }
 }
