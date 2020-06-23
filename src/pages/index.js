@@ -1,4 +1,4 @@
-import Layout from "../../components/layout";
+import Layout from "../components/layout";
 import React, { useState } from "react";
 import {Doughnut, Line, Bar, HorizontalBar} from "react-chartjs-2";
 import {Row, Col, Table} from 'react-bootstrap'
