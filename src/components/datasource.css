@@ -8,7 +8,6 @@
     display: block;
 }
 .data-source a{
-
     color: #000;
 }
 .data-source h2{
@@ -17,47 +16,36 @@
     width: 100%;
 }
 
-.rightControls{
-    text-align: right;
+
+.controls .btn{
+    font-size: .7rem;
+    padding: 0.3rem;
 }
 
-
-.rightControls button{
+.controls button{
     margin-left: 5px;
+
 }
 
-.btn-selected-all{
-    background-color: #3182bd;
-    color: #FFF;
+.chart-legend{
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.chart-legend .item {
+    display: inline-block;
+    margin: 2px;
+}
+.chart-legend .color{
+    width: 40px;
+    height: 10px;
+    display: inline-block;
 }
 
-.btn-selected-original{
-    background-color: #9ecae1;
-    color: #000;
-}
-
-
-.btn-selected-discussion{
-    background-color: #deebf7;
-    color: #000;
-}
-
-
-.btn-outline-all{
-    background-color: #FCFCFC;
-    border-color: #3182bd;
-    color: #3182bd;
-}
-
-.btn-outline-original{
-    background-color: #FCFCFC;
-    border-color: #9ecae1;
-    color: #9ecae1;
-}
-
-
-.btn-outline-discussion{
-    background-color: #FCFCFC;
-    border-color: #deebf7;
-    color: #deebf7;
+.chart-legend .label{
+    height: 15px;
+    font-size: small;
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
 }

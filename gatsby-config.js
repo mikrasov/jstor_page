@@ -13,7 +13,7 @@ module.exports = {
   siteMetadata: {
     title: 'JSTOR Paper',
     twitterUsername: 'PhilosophyData',
-    siteUrl
+    siteUrl: "https://jstor-paper.netlify.app"
   },
   plugins: [
     'gatsby-plugin-react-helmet',

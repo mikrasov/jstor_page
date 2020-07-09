@@ -1,20 +1,35 @@
 import Layout from "../components/layout";
+import Doughnut from "../components/doughnut-wrapper"
+import Legend from "../components/legend"
 import React, { useState } from "react";
-import {Doughnut, Line, Bar, HorizontalBar} from "react-chartjs-2";
-import {Row, Col, Table} from 'react-bootstrap'
+import { Line, Bar, HorizontalBar} from "react-chartjs-2";
+import {Row, Col, Table, ButtonGroup, ToggleButton} from 'react-bootstrap'
 
+const c_top ='#3182bd';
+const c_non ='#3182bd';
+const c_int ='#deebf7';
+const c_m_top ='#bd3131';
+const c_m_non ='#e19e9e';
+const c_m_int ='#f7dede';
 
 const data = {
 
-    options: {
-        Top:    { color: "#3182bd", label: "Top-Philosophy" },
-        NonTop: { color: "#9ecae1", label: "Non-Top Philosophy" },
-        Int:    { color: "#deebf7", label: "Interdisciplinary"},
+    legend: {
+        labels: ["Top-Philosophy", "Non-Top Philosophy", "Interdisciplinary"  ],
+        colors: [c_top,c_non,c_int]
     },
+
+    options: {
+        Top:    { color: c_top, label: "Top-Philosophy" },
+        NonTop: { color: c_non, label: "Non-Top Philosophy" },
+        Int:    { color: c_int, label: "Interdisciplinary"},
+    },
+
+
 
     journals: {
         labels: ['American Philosophical Quarterly', 'Analysis', 'Apeiron', 'Business & Professional Ethics Journal', 'Business Ethics Quarterly', 'Canadian Journal of Philosophy', 'Classical Philology', 'Critical Inquiry', 'Erkenntnis (1975-)', 'Ethical Theory and Moral Practice', 'Ethics', 'Feminist Studies', 'Harvard Law Review', 'Hypatia', 'Inquiry', 'Inter. Journal for Philosophy of Religion', 'Isis', 'Journal of Medical Ethics', 'Journal of Nietzsche Studies', 'Journal of Philosophical Logic', 'Journal of the History of Ideas', 'Law and Philosophy', 'Linguistics and Philosophy', 'Mind', 'Noûs', 'Philosophical Issues', 'Philosophical Perspectives', 'Philosophical Studies', 'Philosophy', 'Philosophy & Public Affairs', 'Philosophy East and West', 'Phil. and Phenomenological Research', 'Philosophy of Science', 'Phronesis', 'Political Theory', 'Polity', 'Proceedings of the Aristotelian Society', 'Public Affairs Quarterly', 'Religious Studies', 'Studia Logica', 'Synthese', 'The British Journal for the Phil. of Sci.', 'The Bulletin of Symbolic Logic', 'The Journal of Aesthetics and Art Crit.', 'The Journal of Ethics', 'The Journal of Philosophy', 'The Journal of Religious Ethics', 'The Journal of Speculative Philosophy', 'The Journal of Symbolic Logic', 'The Monist', 'The Philosophical Quarterly', 'The Philosophical Review', 'The Pluralist', 'The Review of Metaphysics', 'The Review of Politics', 'Trans. of the Charles S. Peirce Society'],
-        colors: ["#3182bd", "#3182bd", "#9ecae1", "#deebf7", "#deebf7", "#3182bd", "#deebf7", "#deebf7", "#3182bd", "#9ecae1", "#3182bd", "#deebf7", "#deebf7", "#9ecae1", "#9ecae1", "#9ecae1", "#deebf7", "#deebf7", "#9ecae1", "#3182bd", "#deebf7", "#9ecae1", "#9ecae1", "#3182bd", "#3182bd", "#9ecae1", "#9ecae1", "#3182bd", "#9ecae1", "#3182bd", "#9ecae1", "#3182bd", "#3182bd", "#9ecae1", "#deebf7", "#deebf7", "#3182bd", "#9ecae1", "#9ecae1", "#deebf7", "#3182bd", "#3182bd", "#deebf7", "#9ecae1", "#9ecae1", "#3182bd", "#9ecae1", "#9ecae1", "#deebf7", "#9ecae1", "#3182bd", "#3182bd", "#deebf7", "#9ecae1", "#deebf7", "#9ecae1"],
+        colors: [c_top, c_top, c_non, c_int, c_int, c_top, c_int, c_int, c_top, c_non, c_top, c_int, c_int, c_non, c_non, c_non, c_int, c_int, c_non, c_top, c_int, c_non, c_non, c_top, c_top, c_non, c_non, c_top, c_non, c_top, c_non, c_top, c_top, c_non, c_int, c_int, c_top, c_non, c_non, c_int, c_top, c_top, c_int, c_non, c_non, c_top, c_non, c_non, c_int, c_non, c_top, c_top, c_int, c_non, c_int, c_non],
         values: {
             1900: [null, null, null, null, null, null, 0.0, null, null, null, null, null, 0.0, null, null, null, null, null, null, null, null, null, null, 11.9, null, null, null, null, null, null, null, null, null, null, null, null, 0.0, null, null, null, null, null, null, null, null, null, null, null, null, 0.0, null, 10.7, null, null, null, null],
             1910: [null, null, null, null, null, null, 5.8, null, null, null, null, null, 0.8, null, null, null, 5.9, null, null, null, null, null, null, 12.5, null, null, null, null, null, null, null, null, null, null, null, null, 7.7, null, null, null, null, null, null, null, null, null, null, null, null, 0.0, null, 7.8, null, null, null, null],
@@ -36,9 +51,9 @@ const data = {
         labels: [1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000],
 
         colors: {
-            Top: ["#bd3131","#3182bd"],
-            NonTop: ["#e19e9e","#9ecae1"],
-            Int: ["#f7dede","#deebf7"],
+            Top: [c_m_top,c_top],
+            NonTop: [c_m_non,c_non],
+            Int: [c_m_int,c_int],
         },
 
         values: {
@@ -68,6 +83,7 @@ const data = {
 }
 
 
+
 function constructDataSet(cat){
     var chartData = {
         labels: data[cat].labels,
@@ -88,11 +104,27 @@ function constructDataSet(cat){
 }
 
 
-function selectJournalDecade(decade) {
-    return  {
-        labels: data.journals.labels,
-        datasets: [{ data: data.journals.values[decade], backgroundColor: data.journals.colors,}]
+
+function selectJournaData(decade, sorting) {
+    var jointArray = []
+    var i = 0
+    data.journals.labels.forEach( s =>{
+        jointArray.push({'label': s, 'color':data.journals.colors[i], 'value': data.journals.values[decade][i],});
+        i++;
+    })
+
+    const sortedData = {
+        labels: [],
+        datasets: [{data: [],backgroundColor:[]}]
     }
+
+    jointArray.sort((a, b) => (a[sorting] - b[sorting]) ).forEach( s =>{
+        sortedData.labels.push(s.label)
+        sortedData.datasets[0].data.push(s.value)
+        sortedData.datasets[0].backgroundColor.push(s.color)
+    })
+
+    return  sortedData
 }
 
 
@@ -102,6 +134,7 @@ function selectTypeDecade(type,decade) {
 
     return  {
         labels: ['Men', 'Women'],
+        text: Math.round(women)+"%",
         datasets: [{ data: [men,women], backgroundColor: data.types.colors[type]}]
     }
 }
@@ -119,32 +152,46 @@ export const Summary = {
             collected from the JSTOR network dataset dating between 1900 and 2009. We define “authorships” as
             author-paper pairs, where multiple authors may co-author the same paper. </p>
     </>,
-    graph: <Line
+    graph: <><br/><Line
         height={50}
         width={50}
         data={constructDataSet("types")}
         options={{
-            maintainAspectRatio: true, legend: {display: false,},
-            title: { display: true,  text: 'Percent of Women Authorships over Time' }
+            maintainAspectRatio: true, legend: {display: false,}
         }}
-    />
+    /></>
 }
 
 export default function(props) {
     const [decade, setDecade] = useState(2000);
-    const [journalDecade, setJournalDecade] = useState(selectJournalDecade(2000));
+    const [sort, setSort] = useState("label");
+    const [journalDecade, setJournalDecade] = useState(selectJournaData(2000, "label"));
     const [topDecade, setTopDecade] = useState(selectTypeDecade("Top",2000));
     const [nonTopDecade, setNonTopDecade] = useState(selectTypeDecade("NonTop",2000));
     const [intDecade, setIntDecade] = useState(selectTypeDecade("Int",2000));
 
-    constructDataSet("aos")
-    function updateYear(e){
-        setDecade(e.target.value)
-        setJournalDecade(selectJournalDecade(e.target.value))
-        setTopDecade(selectTypeDecade("Top",e.target.value))
-        setNonTopDecade(selectTypeDecade("NonTop",e.target.value))
-        setIntDecade(selectTypeDecade("Int",e.target.value))
+
+    function updateSelection(e){
+        var d = decade
+        var s = sort
+
+        if ( e.target.name === "decade") {
+            setDecade(e.target.value)
+
+        }
+        else if ( e.target.name === "sort") {
+            s = e.target.value
+            setSort(e.target.value)
+        }
+
+        setJournalDecade(selectJournaData(d,s))
+        setTopDecade(selectTypeDecade("Top",d))
+        setNonTopDecade(selectTypeDecade("NonTop",d))
+        setIntDecade(selectTypeDecade("Int",d))
     }
+
+
+
 
     return <Layout>
         <h1>{Summary.title}</h1>
@@ -154,8 +201,17 @@ export default function(props) {
 
 
         <Row>
+            <Col sm={12}><Legend data={data.legend} /></Col>
+        </Row>
+        <Row>
             <Col md={6} sm={12}>
                 <h3>Percent of Women Authorships in {decade}s by Journal</h3>
+                <div className="controls"  style={{textAlign: "right"}}>
+                    <ButtonGroup toggle>
+                        <ToggleButton key={1}  type="radio" variant="primary" name="sort" value="label" checked={sort === "label" } onChange={updateSelection}>Alphabetical</ToggleButton>
+                        <ToggleButton key={2}  type="radio" variant="primary" name="sort" value="value" checked={sort === "value" } onChange={updateSelection}>Proportion</ToggleButton>
+                    </ButtonGroup>
+                </div>
                 <HorizontalBar
                     data={journalDecade}
                     width={50}
@@ -166,36 +222,40 @@ export default function(props) {
                         scales: {xAxes: [{ticks: {min: 0, max: 100}}]}
                     }}
                 />
-
-
             </Col>
             <Col  md={6}>
 
                 <h3>Gender of Authorships in Top-Philosophy Journals in the {decade}s</h3>
-                <Doughnut
-                    data={topDecade}
-                    options={{maintainAspectRatio: true,}}
-                />
+                <div  style={{"maxWidth": "50%", "margin":"auto"}}>
+                    <Doughnut
+                        data={topDecade}
+                        options={{maintainAspectRatio: true,}}
+                    />
+                </div>
 
                 <br/>
                 <h3>Gender of Authorships in Non-Top Philosophy Journals in the {decade}s</h3>
-                <Doughnut
-                    data={nonTopDecade}
-                    options={{maintainAspectRatio: true,}}
-                />
+                <div  style={{"maxWidth": "50%", "margin":"auto"}}>
+                    <Doughnut
+                        data={nonTopDecade}
+                        options={{maintainAspectRatio: true,}}
+                    />
+                </div>
 
                 <br/>
                 <h3>Gender of Authorships in Interdisciplinary Journals in the {decade}s</h3>
-                <Doughnut
-                    data={intDecade}
-                    options={{maintainAspectRatio: true,}}
-                />
+
+                <div  style={{"maxWidth": "50%", "margin":"auto"}}>
+                    <Doughnut
+                        data={intDecade}
+                        options={{maintainAspectRatio: true,}}
+                    />
+                </div>
             </Col>
         </Row>
 
         <strong>Selected Decade:</strong> {decade}s
-        <input className="slider" type="range" id="volume" name="volume"
-               min="1900" max="2000" defaultValue="2000"  step="10" onChange={updateYear}/>
+        <input className="slider" type="range" name="decade" min="1900" max="2000" defaultValue="2000" step="10" onChange={updateSelection}/>
 
         <br/>
         <br/>
@@ -234,7 +294,7 @@ export default function(props) {
             </Col>
         </Row>
 
-            <br/><br/>
+        <br/><br/>
         <h2>Methods</h2>
         <p>We examine the numbers and proportions of women authorships in philosophy journals for historical data collected from the JSTOR network dataset dating between 1900 and 2009. We define “authorships” as author-paper pairs, where multiple authors may co-author the same paper. We use authorships because our dataset, like most large-scale bibliographic datasets, does not contain a fully disambiguated set of unique authors.  Because some examined articles are authored by more than one person, the number of women authors is somewhat greater than the number of unique articles with women authors.</p>
 
@@ -246,7 +306,7 @@ export default function(props) {
 
         <p>In our set of authorships, the same individual may author multiple articles. By assuming that a unique first name and last name pair define a unique author in our data, our authorship data corresponds to 19,660 unique authors (3,789 women and 15,871 men). Each article may be authored by multiple individuals. In our data 3,899 (8%) of articles have more than one author, out of which 173 have multiple all women authors, 2,683 have all men authors, and 1,043 have mixed gender authors.  In our data, unique women authors publish an average of 1.9 papers while men authors publish an average of 2.8 papers.</p>
 
-        <p>We grouped journals into three mutually exclusive categories. “#3182bd” journals comprise 18 of the 21 highly ranked philosophy journals listed in a recent survey of faculty perceptions of journal quality reported by Leiter (2013).  We consider 18 of the 21 Leiter ranked journals because only data for these journals were available from JSTOR. The subset comprises 23,204 article entries, with 2,265 total women authorships. Then, we visited individual journal websites and emailed journal editors as needed to establish two additional journal category categories. “#9ecae1” journals comprise 22 philosophy journals, which self-identify as philosophy-specific journals. The subset comprises 8,341 article entries, with 1,953 total women authorships. “#deebf7” journals comprise 16 journals self-identifying as #deebf7 journals with philosophical content. The subset comprises 15,409 article entries, with 2,519 total women authorships. We classified all journals in our dataset by sub-disciplines included and review type (see Appendix B and C for details).</p>
+        <p>We grouped journals into three mutually exclusive categories. “"Top-Philosophy" ” journals comprise 18 of the 21 highly ranked philosophy journals listed in a recent survey of faculty perceptions of journal quality reported by Leiter (2013).  We consider 18 of the 21 Leiter ranked journals because only data for these journals were available from JSTOR. The subset comprises 23,204 article entries, with 2,265 total women authorships. Then, we visited individual journal websites and emailed journal editors as needed to establish two additional journal category categories. “Non-Top Philosophy" journals comprise 22 philosophy journals, which self-identify as philosophy-specific journals. The subset comprises 8,341 article entries, with 1,953 total women authorships. “Interdiciplinary” journals comprise 16 journals self-identifying as #deebf7 journals with philosophical content. The subset comprises 15,409 article entries, with 2,519 total women authorships. We classified all journals in our dataset by sub-disciplines included and review type (see Appendix B and C for details).</p>
 
         <p>In our analysis, unless otherwise stated we use journal-year pair as the grouping for the data. On each journal-year pair we calculate the total proportion of women authorships as defined by the number of women authorships over the total authorships. We provide descriptive statistics of our data, and when possible model the data using generalized linear models (GLMs) to compare between variables. General linear models are a broad class of models, which can be used on data, such as ours, that do not have a normal distribution. As the data better conforms to a negative binomial distribution, in all cases we used this distribution family for generating the model. Note that negative binomial distributions are usually used for count data. When calculating proportions, we use an offset as the log of the number of authors. The statistics of this are outside of the scope of the paper, however, as a result, we can compute the proportions and not just the count of authorships.</p>
 
