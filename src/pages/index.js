@@ -118,7 +118,12 @@ function selectJournaData(decade, sorting) {
         datasets: [{data: [],backgroundColor:[]}]
     }
 
-    jointArray.sort((a, b) => (a[sorting] - b[sorting]) ).forEach( s =>{
+    function compare(a,b){
+        if (sorting === "value") return b[sorting] - a[sorting]
+        else return a[sorting] - b[sorting]
+    }
+
+    jointArray.sort(compare ).forEach( s =>{
         sortedData.labels.push(s.label)
         sortedData.datasets[0].data.push(s.value)
         sortedData.datasets[0].backgroundColor.push(s.color)
@@ -164,8 +169,8 @@ export const Summary = {
 
 export default function(props) {
     const [decade, setDecade] = useState(2000);
-    const [sort, setSort] = useState("label");
-    const [journalDecade, setJournalDecade] = useState(selectJournaData(2000, "label"));
+    const [sort, setSort] = useState("value");
+    const [journalDecade, setJournalDecade] = useState(selectJournaData(2000, "value"));
     const [topDecade, setTopDecade] = useState(selectTypeDecade("Top",2000));
     const [nonTopDecade, setNonTopDecade] = useState(selectTypeDecade("NonTop",2000));
     const [intDecade, setIntDecade] = useState(selectTypeDecade("Int",2000));
@@ -306,11 +311,9 @@ export default function(props) {
 
         <p>In our set of authorships, the same individual may author multiple articles. By assuming that a unique first name and last name pair define a unique author in our data, our authorship data corresponds to 19,660 unique authors (3,789 women and 15,871 men). Each article may be authored by multiple individuals. In our data 3,899 (8%) of articles have more than one author, out of which 173 have multiple all women authors, 2,683 have all men authors, and 1,043 have mixed gender authors.  In our data, unique women authors publish an average of 1.9 papers while men authors publish an average of 2.8 papers.</p>
 
-        <p>We grouped journals into three mutually exclusive categories. “"Top-Philosophy" ” journals comprise 18 of the 21 highly ranked philosophy journals listed in a recent survey of faculty perceptions of journal quality reported by Leiter (2013).  We consider 18 of the 21 Leiter ranked journals because only data for these journals were available from JSTOR. The subset comprises 23,204 article entries, with 2,265 total women authorships. Then, we visited individual journal websites and emailed journal editors as needed to establish two additional journal category categories. “Non-Top Philosophy" journals comprise 22 philosophy journals, which self-identify as philosophy-specific journals. The subset comprises 8,341 article entries, with 1,953 total women authorships. “Interdiciplinary” journals comprise 16 journals self-identifying as #deebf7 journals with philosophical content. The subset comprises 15,409 article entries, with 2,519 total women authorships. We classified all journals in our dataset by sub-disciplines included and review type (see Appendix B and C for details).</p>
+        <p>We grouped journals into three mutually exclusive categories. "Top-Philosophy" journals comprise 18 of the 21 highly ranked philosophy journals listed in a recent survey of faculty perceptions of journal quality reported by Leiter (2013).  We consider 18 of the 21 Leiter ranked journals because only data for these journals were available from JSTOR. The subset comprises 23,204 article entries, with 2,265 total women authorships. Then, we visited individual journal websites and emailed journal editors as needed to establish two additional journal category categories. “Non-Top Philosophy" journals comprise 22 philosophy journals, which self-identify as philosophy-specific journals. The subset comprises 8,341 article entries, with 1,953 total women authorships. “Interdiciplinary” journals comprise 16 journals self-identifying as #deebf7 journals with philosophical content. The subset comprises 15,409 article entries, with 2,519 total women authorships. We classified all journals in our dataset by sub-disciplines included and review type (see Appendix details).</p>
 
-        <p>In our analysis, unless otherwise stated we use journal-year pair as the grouping for the data. On each journal-year pair we calculate the total proportion of women authorships as defined by the number of women authorships over the total authorships. We provide descriptive statistics of our data, and when possible model the data using generalized linear models (GLMs) to compare between variables. General linear models are a broad class of models, which can be used on data, such as ours, that do not have a normal distribution. As the data better conforms to a negative binomial distribution, in all cases we used this distribution family for generating the model. Note that negative binomial distributions are usually used for count data. When calculating proportions, we use an offset as the log of the number of authors. The statistics of this are outside of the scope of the paper, however, as a result, we can compute the proportions and not just the count of authorships.</p>
 
-        <p>In our analysis, we compare the proportions of women authorships in philosophy journals to the proportions of women philosophy faculty in two ways. First, we compare the proportions of women authorships, grouped by journal category, to the proportions of women philosophy faculty.</p>
 
         <h2>Appendix: Area of Specialization</h2>
         <Table striped bordered hover>
@@ -350,63 +353,63 @@ export default function(props) {
             <thead>
             <tr>
                 <th>AOS<br/><br/></th>
-                <th>Journals <br/> Top Philosophy (T), Non-Top Philosophy (N), Interdisciplinary (I)</th>
+                <th>Journals </th>
             </tr>
             </thead>
             <tbody>
             <tr>
                 <td>V</td>
                 <td>
-                    Political Theory (I)<br/>
+                    Political Theory <br/>
                     Ethics (T)<br/>
                     Journal of Medical Ethics<br/>
                     The Journal of Ethics<br/>
-                    Polity (I)<br/>
-                    The Review of Politics (I)<br/>
-                    Business and Professional Ethics Journal (N)<br/>
-                    Business Ethics Quarterly (I)<br/>
-                    Ethical Theory and Moral Practice (N)<br/>
-                    Harvard Law Review (I)<br/>
-                    Law and Philosophy (I)<br/>
-                    Philosophy and Public Affairs (N)<br/>
-                    Public Affairs Quarterly (I)<br/>
+                    Polity <br/>
+                    The Review of Politics <br/>
+                    Business and Professional Ethics Journal <br/>
+                    Business Ethics Quarterly <br/>
+                    Ethical Theory and Moral Practice <br/>
+                    Harvard Law Review <br/>
+                    Law and Philosophy <br/>
+                    Philosophy and Public Affairs <br/>
+                    Public Affairs Quarterly <br/>
                     The Journal of Aesthetics and Art Criticism<br/>
-                    The Journal of Religious Ethics (N)<br/>
+                    The Journal of Religious Ethics <br/>
                 </td>
             </tr>
             <tr>
                 <td>LEMM</td>
                 <td>
-                    Erkenntnis (N)<br/>
-                    Linguistics and Philosophy (N)<br/>
-                    The Review of Metaphysics (N)<br/>
-                    Synthese (N)<br/>
-                    Journal of Philosophical Logic (N)<br/>
+                    Erkenntnis <br/>
+                    Linguistics and Philosophy <br/>
+                    The Review of Metaphysics <br/>
+                    Synthese <br/>
+                    Journal of Philosophical Logic <br/>
                 </td>
             </tr>
             <tr>
                 <td>H</td>
                 <td>
-                    Feminist Studies (I)<br/>
-                    Isis (I)<br/>
-                    The Journal of Speculative Philosophy (N)<br/>
-                    The Pluralist (I)<br/>
-                    Transactions of the Charles S. Peirce Society (N)<br/>
-                    Apeiron (N)<br/>
-                    Classical Philology (I)<br/>
-                    Hypatia (N)<br/>
-                    International Journal for Philosophy of Religion (N)<br/>
-                    Journal of Nietzsche Studies (N)<br/>
-                    Journal of the History of Ideas (I)<br/>
-                    Philosophy East and West (N)<br/>
-                    Phronesis (N)<br/>
-                    Religious Studies (I)<br/>
+                    Feminist Studies <br/>
+                    Isis <br/>
+                    The Journal of Speculative Philosophy <br/>
+                    The Pluralist <br/>
+                    Transactions of the Charles S. Peirce Society <br/>
+                    Apeiron <br/>
+                    Classical Philology <br/>
+                    Hypatia <br/>
+                    International Journal for Philosophy of Religion <br/>
+                    Journal of Nietzsche Studies <br/>
+                    Journal of the History of Ideas <br/>
+                    Philosophy East and West <br/>
+                    Phronesis <br/>
+                    Religious Studies <br/>
                 </td>
             </tr>
             <tr>
                 <td>S</td>
                 <td>
-                    Studia Logica (I)<br/>
+                    Studia Logica <br/>
                     The Bulletin of Symbolic Logic<br/>
                     The Journal of Symbolic Logic<br/>
                     Philosophy of Science<br/>
@@ -420,19 +423,19 @@ export default function(props) {
                     Inquiry<br/>
                     Proceedings of the Aristotelian Society<br/>
                     American Philosophical Quarterly<br/>
-                    Analysis (T)<br/>
-                    Canadian Journal of Philosophy (T)<br/>
-                    Mind (T)<br/>
-                    Nous (T)<br/>
+                    Analysis <br/>
+                    Canadian Journal of Philosophy <br/>
+                    Mind <br/>
+                    Nous <br/>
                     Philosophical Issues<br/>
                     Philosophical Perspectives<br/>
                     Philosophical Studies<br/>
-                    Philosophy (N)<br/>
-                    Philosophy and Phenomenological Research (N)<br/>
-                    The Journal of Philosophy (N)<br/>
-                    The Monist (N)<br/>
+                    Philosophy <br/>
+                    Philosophy and Phenomenological Research <br/>
+                    The Journal of Philosophy <br/>
+                    The Monist <br/>
                     The Philosophical Quarterly<br/>
-                    The Philosophical Review (T)<br/>
+                    The Philosophical Review <br/>
                 </td>
             </tr>
             </tbody>
