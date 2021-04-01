@@ -5,9 +5,9 @@ import React, { useState } from "react";
 import { Line, Bar, HorizontalBar} from "react-chartjs-2";
 import {Row, Col, Table, ButtonGroup, ToggleButton} from 'react-bootstrap'
 
-const c_top ='#3182bd';
-const c_non ='#3182bd';
-const c_int ='#deebf7';
+const c_top ='#2a70a2';
+const c_non ='#8abfdb';
+const c_int ='#c1daf0';
 const c_m_top ='#bd3131';
 const c_m_non ='#e19e9e';
 const c_m_int ='#f7dede';
@@ -64,7 +64,7 @@ const data = {
     },
 
     aos:{
-        labels: ['G', 'H', 'S', 'V', 'LEMM'],
+        labels: ['General', 'History', 'Science', 'Value Theory', 'LEMM'],
         values: {
             Top: [12.8,null,16.7,10.3,12.4] ,
             NonTop: [28.9,40.0,18.0,21.3,null] ,
@@ -73,11 +73,11 @@ const data = {
     },
 
     review:{
-        labels: ['Double Anonymous', 'Triple Anonymous', 'Non-Anonymous'],
+        labels: ['Non-Anonymous', 'Double Anonymous', 'Triple Anonymous'],
         values: {
-            Top: [13.3,11.7,21.5],
-            NonTop: [28.4,null,16.4],
-            Int: [26.0,39.1,17.3],
+            Top: [21.5,13.3,11.7],
+            NonTop: [16.4, 28.4,null],
+            Int: [17.3, 26.0,39.1],
         }
     }
 }
